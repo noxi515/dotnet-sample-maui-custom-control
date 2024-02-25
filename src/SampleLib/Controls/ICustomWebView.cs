@@ -24,4 +24,9 @@ public interface ICustomWebView
     /// ページを再読み込みします。
     /// </summary>
     void Reload();
+
+    /// <summary>
+    /// ナビゲーションの終了イベント
+    /// </summary>
+    event EventHandler? NavigationEnd;
 }

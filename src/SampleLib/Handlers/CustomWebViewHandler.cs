@@ -11,7 +11,7 @@ public partial class CustomWebViewHandler
     /// <summary>
     /// プロパティのマッピング
     /// </summary>
-    public static readonly PropertyMapper<CustomWebView, CustomWebViewHandler> PropertyMapper = new()
+    public static readonly PropertyMapper<CustomWebView, CustomWebViewHandler> PropertyMapper = new(ViewHandler.ViewMapper)
     {
         [nameof(CustomWebView.Url)] = MapUrl
     };

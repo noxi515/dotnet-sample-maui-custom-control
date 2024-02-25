@@ -1,4 +1,6 @@
 ﻿using Microsoft.Maui.Handlers;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.Web.WebView2.Core;
 using SampleLib.Controls;
 
 namespace SampleLib.Handlers;
@@ -8,6 +10,8 @@ namespace SampleLib.Handlers;
 /// </summary>
 public partial class CustomWebViewHandler : ViewHandler<CustomWebView, PlatformCustomWebView>
 {
+    private WebView2? _webView;
+
     protected override PlatformCustomWebView CreatePlatformView()
     {
         // ネイティブコントロールのインスタンスを作成する
@@ -19,6 +23,7 @@ public partial class CustomWebViewHandler : ViewHandler<CustomWebView, PlatformC
         base.ConnectHandler(platformView);
 
         // ネイティブコントロールのセットアップ処理を行う
+        platformView.CoreWebView2Initialized += OnCoreWebView2Initialized;
     }
 
     protected override void DisconnectHandler(PlatformCustomWebView platformView)
@@ -26,6 +31,12 @@ public partial class CustomWebViewHandler : ViewHandler<CustomWebView, PlatformC
         base.DisconnectHandler(platformView);
 
         // ネイティブコントロールのクリーンアップ処理を行う
+        platformView.CoreWebView2Initialized -= OnCoreWebView2Initialized;
+        if (_webView != null)
+        {
+            _webView.NavigationCompleted -= OnWebView2NavigationCompleted;
+            _webView = null;
+        }
     }
 
     /// <summary>
@@ -61,5 +72,24 @@ public partial class CustomWebViewHandler : ViewHandler<CustomWebView, PlatformC
     public static void MapReloadRequested(CustomWebViewHandler handler, CustomWebView view, object? args)
     {
         handler.PlatformView.Reload();
+    }
+
+    /// <summary>
+    /// CoreWebView2の初期化済イベントハンドリング
+    /// </summary>
+    private void OnCoreWebView2Initialized(WebView2 sender, CoreWebView2InitializedEventArgs args)
+    {
+        _webView = sender;
+        sender.NavigationCompleted += OnWebView2NavigationCompleted;
+    }
+
+    /// <summary>
+    /// CoreWebView2のナビゲーション完了イベントハンドリング
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="args"></param>
+    private void OnWebView2NavigationCompleted(WebView2 sender, CoreWebView2NavigationCompletedEventArgs args)
+    {
+        this.VirtualView.SendNavigationEnd();
     }
 }

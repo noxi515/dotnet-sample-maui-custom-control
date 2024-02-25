@@ -1,4 +1,6 @@
-﻿namespace SampleLib.Controls;
+﻿using System.ComponentModel;
+
+namespace SampleLib.Controls;
 
 /// <summary>
 /// カスタムWebViewの仮想コントロール
@@ -63,5 +65,20 @@ public class CustomWebView : View, ICustomWebView
     {
         this.Handler?.Invoke(nameof(ReloadRequested), null);
         this.ReloadRequested?.Invoke(this, EventArgs.Empty);
+    }
+
+
+    /// <summary>
+    /// ナビゲーションの終了イベント
+    /// </summary>
+    public event EventHandler? NavigationEnd;
+
+    /// <summary>
+    /// ナビゲーションの終了イベントを送信します。
+    /// </summary>
+    [EditorBrowsable(EditorBrowsableState.Never)]
+    public void SendNavigationEnd()
+    {
+        this.NavigationEnd?.Invoke(this, EventArgs.Empty);
     }
 }

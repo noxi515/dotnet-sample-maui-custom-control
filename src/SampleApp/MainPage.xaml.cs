@@ -1,4 +1,6 @@
-﻿namespace SampleApp;
+﻿using System.Diagnostics;
+
+namespace SampleApp;
 
 public partial class MainPage : ContentPage
 {
@@ -20,6 +22,11 @@ public partial class MainPage : ContentPage
     private void OnClickReload(object? sender, EventArgs e)
     {
         WebView.Reload();
+    }
+
+    private void OnNavigationEnd(object? sender, EventArgs e)
+    {
+        Debug.WriteLine("NavigationEnd");
     }
 }
 
