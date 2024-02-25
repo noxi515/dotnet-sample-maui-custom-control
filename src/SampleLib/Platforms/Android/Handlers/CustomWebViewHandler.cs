@@ -1,4 +1,6 @@
-﻿using Microsoft.Maui.Handlers;
+﻿using Android.Net.Http;
+using Java.Net;
+using Microsoft.Maui.Handlers;
 using SampleLib.Controls;
 
 namespace SampleLib.Handlers;
@@ -26,5 +28,16 @@ public partial class CustomWebViewHandler : ViewHandler<CustomWebView, PlatformC
         base.DisconnectHandler(platformView);
 
         // ネイティブコントロールのクリーンアップ処理を行う
+    }
+
+    /// <summary>
+    /// URLプロパティを処理します。
+    /// </summary>
+    public static void MapUrl(CustomWebViewHandler handler, CustomWebView view)
+    {
+        if (view.Url != null)
+        {
+            handler.PlatformView.LoadUrl(view.Url);
+        }
     }
 }

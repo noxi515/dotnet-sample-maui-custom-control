@@ -27,4 +27,15 @@ public partial class CustomWebViewHandler : ViewHandler<CustomWebView, PlatformC
 
         // ネイティブコントロールのクリーンアップ処理を行う
     }
+
+    /// <summary>
+    /// URLプロパティを処理します。
+    /// </summary>
+    public static void MapUrl(CustomWebViewHandler handler, CustomWebView view)
+    {
+        if (view.Url != null)
+        {
+            handler.PlatformView.Source = new Uri(view.Url);
+        }
+    }
 }

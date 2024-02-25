@@ -3,6 +3,7 @@
              xmlns:controls="clr-namespace:SampleLib.Controls;assembly=SampleLib"
              x:Class="SampleApp.MainPage">
 
-    <controls:CustomWebView />
+    <controls:CustomWebView
+        Url="https://www.jbs.co.jp" />
 
 </ContentPage>

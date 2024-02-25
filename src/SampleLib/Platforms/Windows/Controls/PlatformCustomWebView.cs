@@ -1,11 +1,11 @@
-﻿using Microsoft.UI.Xaml;
+﻿using Microsoft.UI.Xaml.Controls;
 
 namespace SampleLib.Controls;
 
 /// <summary>
 /// Windows環境でCustomWebViewをレンダリングするコントロール
 /// </summary>
-public class PlatformCustomWebView : FrameworkElement
+public class PlatformCustomWebView : WebView2
 {
     private readonly CustomWebView _virtualView;
 
