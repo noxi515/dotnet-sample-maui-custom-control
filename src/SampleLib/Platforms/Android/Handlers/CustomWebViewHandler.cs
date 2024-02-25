@@ -1,6 +1,4 @@
-﻿using Android.Net.Http;
-using Java.Net;
-using Microsoft.Maui.Handlers;
+﻿using Microsoft.Maui.Handlers;
 using SampleLib.Controls;
 
 namespace SampleLib.Handlers;
@@ -39,5 +37,29 @@ public partial class CustomWebViewHandler : ViewHandler<CustomWebView, PlatformC
         {
             handler.PlatformView.LoadUrl(view.Url);
         }
+    }
+
+    /// <summary>
+    /// 前のページに戻るコマンドを処理します。
+    /// </summary>
+    public static void MapGoBackRequested(CustomWebViewHandler handler, CustomWebView view, object? args)
+    {
+        handler.PlatformView.GoBack();
+    }
+
+    /// <summary>
+    /// 前のページに戻るコマンドを処理します。
+    /// </summary>
+    public static void MapGoForwardRequested(CustomWebViewHandler handler, CustomWebView view, object? args)
+    {
+        handler.PlatformView.GoForward();
+    }
+
+    /// <summary>
+    /// ページの再読み込みコマンドを処理します。
+    /// </summary>
+    public static void MapReloadRequested(CustomWebViewHandler handler, CustomWebView view, object? args)
+    {
+        handler.PlatformView.Reload();
     }
 }

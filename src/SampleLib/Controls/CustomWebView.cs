@@ -20,4 +20,48 @@ public class CustomWebView : View, ICustomWebView
         get => (string?) this.GetValue(UrlProperty);
         set => this.SetValue(UrlProperty, value);
     }
+
+
+    /// <summary>
+    /// 前のページに戻るイベント
+    /// </summary>
+    public event EventHandler? GoBackRequested;
+
+    /// <summary>
+    /// 次のページに進むイベント
+    /// </summary>
+    public event EventHandler? GoForwardRequested;
+
+    /// <summary>
+    /// ページをリロードするイベント
+    /// </summary>
+    public event EventHandler? ReloadRequested;
+
+
+    /// <summary>
+    /// 前のページに戻ります。
+    /// </summary>
+    public void GoBack()
+    {
+        this.Handler?.Invoke(nameof(GoBackRequested), null);
+        this.GoBackRequested?.Invoke(this, EventArgs.Empty);
+    }
+
+    /// <summary>
+    /// 次のページに進みます。
+    /// </summary>
+    public void GoForward()
+    {
+        this.Handler?.Invoke(nameof(GoForwardRequested), null);
+        this.GoForwardRequested?.Invoke(this, EventArgs.Empty);
+    }
+
+    /// <summary>
+    /// ページを再読み込みします。
+    /// </summary>
+    public void Reload()
+    {
+        this.Handler?.Invoke(nameof(ReloadRequested), null);
+        this.ReloadRequested?.Invoke(this, EventArgs.Empty);
+    }
 }

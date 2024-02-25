@@ -19,7 +19,12 @@ public partial class CustomWebViewHandler
     /// <summary>
     /// コマンドのマッピング
     /// </summary>
-    public static readonly CommandMapper<CustomWebView, CustomWebViewHandler> CommandMapper = new(ViewHandler.ViewCommandMapper);
+    public static readonly CommandMapper<CustomWebView, CustomWebViewHandler> CommandMapper = new(ViewHandler.ViewCommandMapper)
+    {
+        [nameof(CustomWebView.GoBackRequested)] = MapGoBackRequested,
+        [nameof(CustomWebView.GoForwardRequested)] = MapGoForwardRequested,
+        [nameof(CustomWebView.ReloadRequested)] = MapReloadRequested
+    };
 
     public CustomWebViewHandler()
         : base(PropertyMapper, CommandMapper)
